@@ -1,5 +1,4 @@
 // middleware is function that have access to the request and response function
-
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
