@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 // useReduce: to have acces to state & dispatch
-import uuid from 'uuid';
+import {v4 as uuid} from "uuid";
 // uuid: to create random id
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
@@ -38,30 +38,53 @@ const ContactState = props => {
                 phone: '333-333-333',
                 type: 'profesional' 
             }
-        ]
+        ],
+        current: null
     };
 
     const [state, dispatch] = useReducer(contactReducer, initialState);
 
     // Add Contact
+const addContact = contact => {
+    contact.id = uuid.v4();
+    dispatch({ type: ADD_CONTACT, payload: contact });
+};
 
     // Delete Contact
+const deleteContact = id => {
+    dispatch({ type: DELETE_CONTACT, payload: id });
+};
 
-    // Ser Current Contact
+    // Set Current Contact
+const setCurrent = contact => {
+    dispatch({ type: SET_CURRENT, payload: contact });
+};
 
-    // Delete Current Contact
+    // Clear Current Contact
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT });
+    };
 
     // Update Contact
 
+
     // Filter Contacts
+
 
     // Clear Filter
 
+
     // Return our provider :
     return (
+        // Functions & states added here, so, we can used in our components
         <ContactContext.Provider
             value={{
-                contacts: state.contacts
+                contacts: state.contacts,
+                current: state.current,
+                addContact,
+                deleteContact,
+                setCurrent,
+                clearCurrent
             }}
             >
             { props.children }
