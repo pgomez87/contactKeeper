@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 // useReduce: to have acces to state & dispatch
-import {v4 as uuid} from "uuid";
-// uuid: to create random id
+import nextId from "react-id-generator";
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
 import {
@@ -47,7 +46,7 @@ const ContactState = props => {
 
     // Add Contact
 const addContact = contact => {
-    // contact.id = uuid.v4();
+    contact.id = nextId(133,1);
     dispatch({ type: ADD_CONTACT, payload: contact });
 };
 
